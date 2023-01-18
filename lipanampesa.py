@@ -30,29 +30,32 @@ consumer_key = keys.consumer_key
 consumer_secret = keys.consumer_secret
 api_url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
 r = requests.get(api_url,  auth=HTTPBasicAuth(consumer_key, consumer_secret))
-print(r.text)
+# r= requests.request("GET", api_url)
+print(r.json())
+json_response = r.json()
+access_token = json_response['access_token']
 
-# def lipa_na_mpesa():
+def lipa_na_mpesa():
         
-#     access_token = "Access-Token"
-#     api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
-#     headers ={"Authorization" : "Bearer %s" % access_token}
+    # access_token = access_token
+    api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+    headers ={"Authorization" : "Bearer %s" % access_token}
 
-#     request = {
-#         "BusinessShortCode":keys.business_shortcode,    
-#         "Password": decoded,    
-#         "Timestamp":formattedtime,    
-#         "TransactionType": "CustomerPayBillOnline",    
-#         "Amount":"1",    
-#         "PartyA":keys.phone_number,    
-#         "PartyB":keys.business_shortcode,    
-#         "PhoneNumber":keys.phone_number,    
-#         "CallBackURL":"https://fullstackdjano.com/lipanampesa/",    
-#         "AccountReference":"Test1",    
-#         "TransactionDesc":"Test1"
-#     }
+    request = {
+        "BusinessShortCode":keys.business_shortcode,    
+        "Password": decoded,    
+        "Timestamp":formattedtime,    
+        "TransactionType": "CustomerPayBillOnline",    
+        "Amount":"1",    
+        "PartyA":keys.phone_number,    
+        "PartyB":keys.business_shortcode,    
+        "PhoneNumber":keys.phone_number,    
+        "CallBackURL":"https://fullstackdjango.com/lipanampesa/",    
+        "AccountReference":"Test1",    
+        "TransactionDesc":"Test1"
+    }
 
-#     response = requests.post(api_url, json=request, headers = headers)
-#     print(response.text)
+    response = requests.post(api_url, json=request, headers = headers)
+    print(response.text)
 
-# lipa_na_mpesa()
+lipa_na_mpesa()
